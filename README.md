@@ -1,4 +1,4 @@
-# Frontend - Controle de Estoque
+#Controle de Estoque
 
 Frontend para gerenciamento de produtos conectado à API Laravel.
 
