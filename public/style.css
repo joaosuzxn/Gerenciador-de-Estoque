@@ -146,14 +146,59 @@ table {
     overflow: hidden;
 }
 
+#tabela-produtos {
+    table-layout: fixed;
+    width: 100%;
+}
+
 #tabela-produtos thead {
     background: #3498db;
+}
+
+#tabela-produtos th:nth-child(1),
+#tabela-produtos td:nth-child(1) {
+    width: 284px;
+    min-width: 284px;
+    max-width: 284px;
+}
+
+#tabela-produtos th:nth-child(2),
+#tabela-produtos td:nth-child(2) {
+    width: 552px;
+    min-width: 552px;
+    max-width: 552px;
+}
+
+#tabela-produtos th:nth-child(3),
+#tabela-produtos td:nth-child(3) {
+    width: 66px;
+    min-width: 66px;
+    max-width: 66px;
+    text-align: right;
+}
+
+#tabela-produtos th:nth-child(4),
+#tabela-produtos td:nth-child(4) {
+    width: 66px;
+    min-width: 66px;
+    max-width: 66px;
+    text-align: right;
+}
+
+#tabela-produtos th:nth-child(5),
+#tabela-produtos td:nth-child(5) {
+    width: 101px;
+    min-width: 101px;
+    max-width: 101px;
+    text-align: center;
 }
 
 th, td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 th {
@@ -569,6 +614,14 @@ th {
 #paginacao-container button:disabled {
     cursor: not-allowed;
     opacity: 0.5;
+}
+
+#paginacao-container .pagination-ellipsis {
+    padding: 10px 5px;
+    margin: 0 5px;
+    color: #666;
+    font-weight: bold;
+    user-select: none;
 }
 
 

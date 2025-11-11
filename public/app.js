@@ -111,20 +111,70 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         paginacaoContainer.appendChild(btnAnterior);
 
-        const maxButtons = 5; 
-        
-       
-        const currentBlock = Math.ceil(currentPage / maxButtons);
-        let startPage = (currentBlock - 1) * maxButtons + 1;
-        let endPage = Math.min(currentBlock * maxButtons, totalPages);
-       
+        // Carrossel inteligente que mostra até 5 páginas
+        const maxButtons = 5;
+        let startPage, endPage;
 
+        if (totalPages <= maxButtons) {
+            // Se há 5 ou menos páginas, mostra todas
+            startPage = 1;
+            endPage = totalPages;
+        } else {
+            // Quando nas últimas páginas, mostra as páginas finais incluindo a última
+            if (currentPage >= totalPages - 2) {
+                // Mostra as últimas 5 páginas
+                startPage = totalPages - (maxButtons - 1);
+                endPage = totalPages;
+            } else if (currentPage <= 3) {
+                // Mostra as primeiras 5 páginas
+                startPage = 1;
+                endPage = maxButtons;
+            } else {
+                // Mostra páginas ao redor da atual (2 antes, atual, 2 depois)
+                startPage = currentPage - 2;
+                endPage = currentPage + 2;
+            }
+        }
+
+        // Adiciona primeira página se não estiver visível
+        if (startPage > 1) {
+            const btnFirst = document.createElement('button');
+            btnFirst.textContent = '1';
+            btnFirst.classList.toggle('active', 1 === currentPage);
+            btnFirst.addEventListener('click', () => fetchProdutos(1, termoBuscaAtual));
+            paginacaoContainer.appendChild(btnFirst);
+            
+            if (startPage > 2) {
+                const ellipsis = document.createElement('span');
+                ellipsis.textContent = '...';
+                ellipsis.className = 'pagination-ellipsis';
+                paginacaoContainer.appendChild(ellipsis);
+            }
+        }
+
+        // Adiciona botões das páginas
         for (let i = startPage; i <= endPage; i++) {
             const btn = document.createElement('button');
             btn.textContent = i;
             btn.classList.toggle('active', i === currentPage);
             btn.addEventListener('click', () => fetchProdutos(i, termoBuscaAtual));
             paginacaoContainer.appendChild(btn);
+        }
+
+        // Adiciona última página se não estiver visível
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                const ellipsis = document.createElement('span');
+                ellipsis.textContent = '...';
+                ellipsis.className = 'pagination-ellipsis';
+                paginacaoContainer.appendChild(ellipsis);
+            }
+            
+            const btnLast = document.createElement('button');
+            btnLast.textContent = totalPages;
+            btnLast.classList.toggle('active', totalPages === currentPage);
+            btnLast.addEventListener('click', () => fetchProdutos(totalPages, termoBuscaAtual));
+            paginacaoContainer.appendChild(btnLast);
         }
 
         const btnProximo = document.createElement('button');
@@ -327,6 +377,13 @@ document.addEventListener('DOMContentLoaded', () => {
             showNotification(`Produto ${id ? 'atualizado' : 'criado'} com sucesso!`, 'success');
             
             fecharModal();
+            
+            // Ao criar novo produto, ordena automaticamente por nome (A-Z)
+            if (!id) {
+                ordenacaoAtual.column = 'nome';
+                ordenacaoAtual.order = 'asc';
+            }
+            
             fetchProdutos(paginaAtual, termoBuscaAtual); 
             
         } catch (error) {
