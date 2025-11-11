@@ -2,38 +2,31 @@
 
 Frontend para gerenciamento de produtos conectado à API Laravel.
 
-## Configuração
+## 🚀 Como Iniciar o Aplicativo
 
-O frontend está configurado para se conectar à API Laravel em:
-- **URL da API**: `http://localhost:8000/api/produto`
+Para iniciar o aplicativo, siga estes passos:
 
-## Como usar
-
-### 1. Certifique-se de que a API Laravel está rodando
-
-```powershell
+```bash
+# 1. Instalar dependências do Laravel
 cd api
+composer install
+
+# 2. Iniciar o servidor da API
 php artisan serve
 ```
 
 A API estará disponível em `http://localhost:8000`
 
-### 2. Abra o frontend
+**3. Abra o frontend**
 
-Abra o arquivo `public/index.html` no navegador ou use um servidor local:
+Abra o arquivo `public/index.html` diretamente no navegador.
 
-```powershell
-# Usando Python (se instalado)
-cd public
-python -m http.server 3000
+## Configuração
 
-# Ou usando Node.js http-server (se instalado)
-npx http-server -p 3000
-```
+O frontend está configurado para se conectar à API Laravel em:
+- **URL da API**: `http://localhost:8000/api/produto`
 
-Depois acesse: `http://localhost:3000`
-
-### 3. Funcionalidades
+## Funcionalidades
 
 - ✅ Listar produtos com paginação
 - ✅ Buscar produtos por nome ou descrição
