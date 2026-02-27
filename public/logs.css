@@ -1,0 +1,133 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f7fb;
+    color: #22364f;
+}
+
+.back-arrow {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background: #2f86ff;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(29, 115, 235, 0.3);
+    z-index: 1100;
+}
+
+.logs-header {
+    max-width: 1200px;
+    margin: 0 auto 14px;
+    background: linear-gradient(135deg, #1d73eb, #31a8ff);
+    border-radius: 12px;
+    color: #fff;
+    padding: 20px;
+}
+
+.logs-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.logs-header h1 {
+    margin: 0;
+}
+
+.logs-header p {
+    margin: 6px 0 0;
+}
+
+.logs-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    gap: 12px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 8px 24px rgba(29, 52, 84, 0.1);
+}
+
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+select {
+    border: 1px solid #c5d2e2;
+    border-radius: 8px;
+    padding: 8px 10px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #2f86ff;
+    color: #fff;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #e6edf5;
+    text-align: left;
+    vertical-align: top;
+}
+
+.btn {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 11px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-primary {
+    background: #1f9d58;
+    color: #fff;
+}
+
+.acao-chip {
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.acao-criado { background: #e2f2e7; color: #1f9d58; }
+.acao-atualizado { background: #e7edf9; color: #2f86ff; }
+.acao-excluido { background: #f9e4e4; color: #d93f3f; }
+
+@media (max-width: 860px) {
+    body { padding: 12px; }
+    .back-arrow { top: 10px; left: 10px; }
+    .logs-header-content { flex-direction: column; align-items: flex-start; }
+}

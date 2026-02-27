@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs de Produtos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="logs.css">
+</head>
+<body>
+    <a href="index.html" class="back-arrow" aria-label="Voltar para estoque">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+
+    <header class="logs-header">
+        <div class="logs-header-content">
+            <div>
+                <h1>Logs de Produtos</h1>
+                <p>Historico de criacao, edicao e exclusao</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="logs-main">
+        <section class="card">
+            <div class="filter-row">
+                <label for="filtro-acao">Filtrar por acao:</label>
+                <select id="filtro-acao">
+                    <option value="">Todas</option>
+                    <option value="criado">Criado</option>
+                    <option value="atualizado">Atualizado</option>
+                    <option value="excluido">Excluido</option>
+                </select>
+                <button id="btn-filtrar" class="btn btn-primary" type="button">Aplicar</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Acao</th>
+                            <th>Usuario</th>
+                            <th>Produto</th>
+                            <th>Detalhes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logs-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="logs.js"></script>
+</body>
+</html>

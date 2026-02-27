@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="notification-container"></div>
+    <div id="loading-bar-container" hidden>
+        <div id="loading-bar"></div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="header-left">
+                <div class="header-icon">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                </div>
+                <div class="header-text">
+                    <h1>Meu Estoque</h1>
+                    <p>Gerencie seus produtos com facilidade</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <span id="usuario-logado"></span>
+                <a id="btn-logs" class="btn btn-header-link" href="logs.html" hidden>
+                    <i class="fa-solid fa-clipboard-list"></i> Logs
+                </a>
+                <a id="btn-admin" class="btn btn-header-link" href="admin.html" hidden>
+                    <i class="fa-solid fa-user-gear"></i> Admin
+                </a>
+                <button id="btn-logout" class="btn btn-logout" type="button">
+                    <i class="fa-solid fa-right-from-bracket"></i> Sair
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="search-container">
+        <div class="search-and-create-wrapper">
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="input-busca" placeholder="Buscar por nome ou descricao...">
+                <button id="btn-limpar-busca" class="btn-clear-search" type="button" title="Limpar busca">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <button id="btn-novo-produto" class="btn btn-novo" type="button">+ Criar Novo Produto</button>
+        </div>
+
+        <div id="search-info" class="search-info" hidden>
+            <i class="fa-solid fa-circle-info"></i>
+            <span id="search-info-text"></span>
+        </div>
+    </section>
+
+    <main>
+        <table id="tabela-produtos">
+            <thead>
+                <tr>
+                    <th class="sortable" data-column="nome">Nome <i class="fa-solid fa-sort sort-icon"></i></th>
+                    <th class="sortable" data-column="descricao">Descricao <i class="fa-solid fa-sort sort-icon"></i></th>
+                    <th class="sortable align-right" data-column="quantidade">Qtd. <i class="fa-solid fa-sort sort-icon"></i></th>
+                    <th class="sortable align-right" data-column="preco">Preco (R$) <i class="fa-solid fa-sort sort-icon"></i></th>
+                    <th>Acoes</th>
+                </tr>
+            </thead>
+            <tbody id="corpo-tabela"></tbody>
+        </table>
+    </main>
+
+    <div id="paginacao-container"></div>
+
+    <div id="modal-produto" class="modal-overlay">
+        <div class="modal-content modal-produto-content">
+            <div class="modal-header">
+                <div class="modal-icon-container" id="modal-icon-container">
+                    <i class="fa-solid fa-plus" id="modal-icon"></i>
+                </div>
+                <h2 id="modal-titulo">Novo Produto</h2>
+                <button id="btn-fechar-modal" class="modal-close" type="button" aria-label="Fechar">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <form id="form-produto">
+                <input type="hidden" id="produto-id">
+
+                <div class="form-group">
+                    <label for="nome_produto">Nome do Produto <span class="required">*</span></label>
+                    <input type="text" id="nome_produto" required>
+                    <span class="error-message" id="error-nome_produto"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descricao <span class="required">*</span></label>
+                    <textarea id="descricao" rows="3" required></textarea>
+                    <span class="error-message" id="error-descricao"></span>
+                </div>
+
+                <div class="form-group-inline">
+                    <div class="form-group">
+                        <label for="quantidade">Quantidade <span class="required">*</span></label>
+                        <input type="number" id="quantidade" min="0" required>
+                        <span class="error-message" id="error-quantidade"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="preco">Preco (R$) <span class="required">*</span></label>
+                        <input type="text" id="preco" required>
+                        <span class="error-message" id="error-preco"></span>
+                    </div>
+                </div>
+
+                <div class="modal-botoes">
+                    <button id="btn-cancelar" class="btn btn-cancelar" type="button">Cancelar</button>
+                    <button class="btn btn-salvar" type="submit">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-confirmacao" class="modal-overlay">
+        <div class="modal-content modal-confirmacao-content">
+            <div class="modal-confirmacao-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h2>Confirmar Exclusao</h2>
+            <p>Tem certeza que deseja excluir este produto?</p>
+            <div class="modal-botoes">
+                <button id="btn-confirmar-nao" class="btn btn-cancelar" type="button">Nao, cancelar</button>
+                <button id="btn-confirmar-sim" class="btn btn-excluir" type="button">Sim, excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-logout-confirmacao" class="modal-overlay">
+        <div class="modal-content modal-confirmacao-content">
+            <div class="modal-confirmacao-icon">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </div>
+            <h2>Confirmar Saida</h2>
+            <p>Deseja realmente sair?</p>
+            <div class="modal-botoes">
+                <button id="btn-logout-nao" class="btn btn-cancelar" type="button">Cancelar</button>
+                <button id="btn-logout-sim" class="btn btn-logout" type="button">Sair</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
